@@ -1,8 +1,12 @@
-class No:
+class Node(object):
+    x = 0
+    y = 0
+    frequentadores = list()
+
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.frequentadores = list()
+
         # self.listaAdj.add(Adj)
 
     def getX(self):
@@ -11,9 +15,10 @@ class No:
     def getY(self):
         return self.y
 
-    def ADD(self, Id):
-        if (Id not in self.frequentadores):
-            self.frequentadores.append(Id)
+    def add_frequentadores(self, id):
+        if (id not in self.frequentadores):
+            self.frequentadores.append(id)
+            
 
     def getFrequentadores(self):
         return self.frequentadores
