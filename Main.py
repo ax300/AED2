@@ -5,13 +5,6 @@ import json
 import matplotlib.pyplot as plt
 import numpy as np
 
-# np.random.seed(42)
-# x = np.random.normal(size=1000)
-# plt.hist(x, density=True, bins=30)  # `density=False` would make counts
-# plt.ylabel('Frequentadores')
-# plt.xlabel('Nós')
-# plt.show()
-
 nodes_index = []
 all_nodes = []
 
@@ -41,8 +34,8 @@ def add_nodes(lat, lon, id_frequentador):
         new_node.add_frequentadores(id_frequentador)
         all_nodes.append(new_node)        
     else:
-        node_att = get_node(lat_lon)
-        node_att.add_frequentadores(id_frequentador)
+        repeated_node = get_node(lat_lon)
+        repeated_node.add_frequentadores(id_frequentador)
 
 def print_freq():
     global all_nodes
@@ -52,6 +45,13 @@ def print_freq():
         # for freq in node.frequentadores:
         #     print (str(freq) + ' ')
         # print ('\n')
+
+def plot_hist():
+    global nodes_index
+    plt.bar(nodes_index, freq,align='center')  # `density=False` would make counts
+    plt.ylabel('Nº Frequentadores')
+    plt.xlabel('Nós')
+    # plt.show()
 
 
 if __name__ == '__main__':
@@ -63,11 +63,12 @@ if __name__ == '__main__':
         line_count = 0
 
         for row in csv_reader:
-            line_count += 1
-            if line_count > 3: break
+            # line_count += 1
+            # if line_count > 3: break
 
             add_nodes(row[84], row[85], row[43]) # Adiciona os nós origem
             add_nodes(row[88], row[89], row[43]) # Adiciona os nós destino
     
     # printNodes(all_nodes)
-    print_freq()
+    # print_freq()
+    # plot_hist()
