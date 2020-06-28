@@ -1,12 +1,12 @@
 class Node(object):
-    x = 0
-    y = 0
-    frequentadores = list()
 
-    def __init__(self, x, y):
+    def __init__(self, x, y, id):
+        # Id composto pelas coordenadas concatenadas
+        self.id = id
+        # coordenadas
         self.x = x
         self.y = y
-
+        self.frequentadores = []
         # self.listaAdj.add(Adj)
 
     def getX(self):
@@ -18,10 +18,9 @@ class Node(object):
     def add_frequentadores(self, id):
         if (id not in self.frequentadores):
             self.frequentadores.append(id)
-            
 
-    def getFrequentadores(self):
+    def get_frequentadores(self):
         return self.frequentadores
 
     # def getAdj(self):
-    #     return self.listaAdj
+    #     return self.listaAdj.
