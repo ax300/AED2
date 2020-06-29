@@ -1,14 +1,18 @@
+#!/usr/bin/env python
+# -- coding: utf-8 --
+
 import csv
 import sys
 from Node import Node
 import json
 import matplotlib.pyplot as plt
 import numpy as np
+from datetime import datetime
+
 
 nodes_index = []
 all_nodes = []
 nodes_freq = []
-
 # def printNodes(all_nodes):
 #     print(all_nodes)
     # for No in Nos:
@@ -62,6 +66,8 @@ def plot_hist():
 
 if __name__ == '__main__':
 
+    start = datetime.now()
+
     with open(r"OD_2017.csv") as f:
         csv_reader = csv.reader(f, delimiter=',')
         next(csv_reader, None) # Pula a primeira linha
@@ -78,4 +84,8 @@ if __name__ == '__main__':
     count_freq()
     # printNodes(all_nodes)
     # print_freq()
+    end = datetime.now()
+    diff = end-start
+    print(diff)
+    print("Plotando grafico...")
     plot_hist()
