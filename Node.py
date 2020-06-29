@@ -7,20 +7,7 @@ class Node(object):
         self.x = x
         self.y = y
         self.frequentadores = []
-        # self.listaAdj.add(Adj)
-
-    def getX(self):
-        return self.x
-
-    def getY(self):
-        return self.y
 
     def add_frequentadores(self, id):
-        if (id not in self.frequentadores):
+        if (id not in self.frequentadores): #adiciona id dos frequentadores sem repetir
             self.frequentadores.append(id)
-
-    def get_frequentadores(self):
-        return self.frequentadores
-
-    # def getAdj(self):
-    #     return self.listaAdj.

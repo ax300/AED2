@@ -7,13 +7,20 @@ import numpy as np
 
 nodes_index = []
 all_nodes = []
+nodes_freq = []
 
-def printNodes(all_nodes):
-    print(all_nodes)
+# def printNodes(all_nodes):
+#     print(all_nodes)
     # for No in Nos:
     #     print(" Coord x:" + str(No.getX()) + " Coord y:" + str(No.getY()) + "\n")
 
-def get_node(id):
+# def print_freq():
+#     global all_nodes
+
+#     for node in all_nodes:
+#         print (str(node.x) +  ' ' + str(node.y) + ' ' + str(node.frequentadores))
+
+def get_node(id): # devolve no com Id procurado
     global all_nodes
 
     for node in all_nodes:
@@ -26,33 +33,32 @@ def add_nodes(lat, lon, id_frequentador):
 
     lat_lon = lat + lon
 
-    # print(lat + ' ' + lon + ' ' + id_frequentador)
+    if lat_lon != '00':
+        if lat_lon not in nodes_index: # Insere se não tiver nenhum nó repetido (pode ser origem ou destino)
+            nodes_index.append(lat_lon)
+            new_node = Node(int(lat), int(lon), lat_lon)
+            new_node.add_frequentadores(id_frequentador)
+            all_nodes.append(new_node)
+        else: # caso seja um no jah inserido
+            repeated_node = get_node(lat_lon)
+            repeated_node.add_frequentadores(id_frequentador)
 
-    if lat_lon not in nodes_index: # Insere se não tiver nenhum nó repetido (pode ser origem ou destino)
-        nodes_index.append(lat_lon)
-        new_node = Node(int(lat), int(lon), lat_lon)
-        new_node.add_frequentadores(id_frequentador)
-        all_nodes.append(new_node)        
-    else:
-        repeated_node = get_node(lat_lon)
-        repeated_node.add_frequentadores(id_frequentador)
-
-def print_freq():
+def count_freq(): # conta quantidade de frequentadores por no
     global all_nodes
+    global nodes_freq
 
     for node in all_nodes:
-        print (str(node.x) +  ' ' + str(node.y) + ' ' + str(node.frequentadores))
-        # for freq in node.frequentadores:
-        #     print (str(freq) + ' ')
-        # print ('\n')
+       nodes_freq.append(len(node.frequentadores))
 
 def plot_hist():
     global nodes_index
-    plt.bar(nodes_index, freq,align='center')  # `density=False` would make counts
+    global nodes_freq
+
+    plt.bar(nodes_index, nodes_freq)
     plt.ylabel('Nº Frequentadores')
     plt.xlabel('Nós')
-    # plt.show()
-
+    plt.xticks(rotation='vertical')
+    plt.show()
 
 if __name__ == '__main__':
 
@@ -64,11 +70,12 @@ if __name__ == '__main__':
 
         for row in csv_reader:
             # line_count += 1
-            # if line_count > 3: break
+            # if line_count > 50: break
 
             add_nodes(row[84], row[85], row[43]) # Adiciona os nós origem
             add_nodes(row[88], row[89], row[43]) # Adiciona os nós destino
     
+    count_freq()
     # printNodes(all_nodes)
     # print_freq()
-    # plot_hist()
+    plot_hist()
