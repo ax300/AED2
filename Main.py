@@ -6,7 +6,7 @@ import sys
 from Node import Node
 import json
 import matplotlib.pyplot as plt
-import numpy as np
+# import numpy as np
 from datetime import datetime
 
 
@@ -57,11 +57,24 @@ def count_freq(): # conta quantidade de frequentadores por no
 def plot_hist():
     global nodes_index
     global nodes_freq
+    x_array = []
+    y_array = []
+    cities_frequency = {}
 
-    plt.bar(nodes_index, nodes_freq)
-    plt.ylabel('Nº Frequentadores')
-    plt.xlabel('Nós')
+    for x in nodes_freq: 
+        if x not in cities_frequency:      
+            cities_frequency[x] = 1
+        else:
+            cities_frequency[x] += 1
+
+    for k, v in cities_frequency.items():
+        x_array.append(k)
+        y_array.append(v)
+    
+    plt.bar(x_array, y_array)
+    plt.xlabel('Cidades')
     plt.xticks(rotation='vertical')
+    plt.ylabel('Nº Frequentadores')
     plt.show()
 
 if __name__ == '__main__':
